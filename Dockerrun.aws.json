@@ -1,0 +1,35 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+	"name": "client",
+ 	"image": "emunn/multi-client",
+	"hostname": "client",
+	"essential": false
+    },
+    {
+        "name": "server",
+        "image": "emunn/multi-server",
+        "hostname": "api",
+        "essential": false
+    },
+    {
+        "name": "worker",
+        "image": "emunn/multi-worker",
+        "hostname": "worker",
+        "essential": false
+    },
+    {
+        "name": "nginx",
+        "image": "emunn/multi-nginx",
+        "essential": true,
+	"portMappings": [
+	  {
+	    "hostPort": 80,
+	    "containerPort": 80
+	  }
+        ],
+	"links": ["client","server"]
+    }
+  ]
+}
